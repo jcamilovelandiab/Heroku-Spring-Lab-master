@@ -17,6 +17,7 @@ import static java.util.stream.Collectors.toList;
 public class UserMemoryRepository implements IUserRepository{
 
     public static List<User> usersContainer;
+    
     public static List<User> getContainer(){
         if(UserMemoryRepository.usersContainer == null)
             UserMemoryRepository.usersContainer = new ArrayList<>();
@@ -75,4 +76,11 @@ public class UserMemoryRepository implements IUserRepository{
                 .filter(u -> !u.getId().equals(id))
                 .collect(toList());
     }
+
+	@Override
+	public void remove(String licensePlate) {
+		// TODO Auto-generated method stub
+		
+	}
+    
 }

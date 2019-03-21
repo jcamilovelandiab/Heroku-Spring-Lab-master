@@ -89,4 +89,10 @@ public class UserPostgresRepository implements IUserRepository {
             return new HikariDataSource(config);
         }
     }
+
+	@Override
+	public void remove(String licensePlate) {
+		// TODO Auto-generated method stub
+		
+	}
 }
