@@ -46,9 +46,9 @@ public class CarMemoryRepository implements  ICarRepository {
 	}
 
 	@Override
-	public String save(Car entity) {
+	public Car save(Car entity) {
 		CarMemoryRepository.getContainer().add(entity);
-		return entity.getLicencePlate();
+		return entity;
 	}
 
 	@Override
@@ -57,6 +57,7 @@ public class CarMemoryRepository implements  ICarRepository {
 	                .stream()
 	                .map(u -> u.getLicencePlate().equals(entity.getLicencePlate()) ? entity : u)
 	                .collect(toList());
+		
 	}
 
 	@Override
@@ -75,6 +76,12 @@ public class CarMemoryRepository implements  ICarRepository {
 
 	@Override
 	public void remove(Long id) {
+	}
+
+	@Override
+	public void delete(String o) throws RepositoryException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

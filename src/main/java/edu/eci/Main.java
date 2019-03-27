@@ -35,6 +35,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @SpringBootApplication
@@ -42,7 +43,8 @@ import java.util.Map;
 public class Main {
 
   public static void main(String[] args) throws Exception {
-    SpringApplication.run(Main.class, args);
+	 //System.out.println(UUID.randomUUID().toString());
+     SpringApplication.run(Main.class, args);
   }
 
   @RequestMapping("/")

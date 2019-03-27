@@ -48,9 +48,9 @@ public class UserMemoryRepository implements IUserRepository{
     }
 
     @Override
-    public UUID save(User entity) {
+    public User save(User entity) {
         UserMemoryRepository.getContainer().add(entity);
-        return entity.getId();
+        return entity;
     }
 
     @Override
@@ -79,6 +79,12 @@ public class UserMemoryRepository implements IUserRepository{
 
 	@Override
 	public void remove(String licensePlate) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(UUID o) throws RepositoryException {
 		// TODO Auto-generated method stub
 		
 	}

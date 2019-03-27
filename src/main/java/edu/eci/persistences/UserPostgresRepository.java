@@ -2,6 +2,7 @@ package edu.eci.persistences;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import edu.eci.config.DataBases;
 import edu.eci.models.User;
 import edu.eci.persistences.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,75 +24,137 @@ import java.util.UUID;
 @Qualifier("UserPostgresRepository")
 public class UserPostgresRepository implements IUserRepository {
 
-    private String dbUrl = null;
 
-    @Autowired
-    private DataSource dataSource;
+	@Autowired
+	private DataBases database;
 
-    @Override
-    public User getUserByUserName(String userName) {
-        return null;
-    }
+	@Override
+	public User getUserByUserName(String userName) throws RepositoryException {
+		String query = String.format("SELECT * FROM users where name = '%s'", userName);
+		User user = null;
+		try {
+			Connection connection = database.basicDataSource.getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(query);
+			while (resultSet.next()) {
+				user = new User();
+				user.setId(UUID.fromString(resultSet.getString("id")));
+				user.setName(resultSet.getString("name"));
+			}
+			if (user == null) {
+				throw new RepositoryException("NOT FOUND");
+			}
+			connection.close();
+			return user;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 
-    @Override
-    public List<User> findAll() {
-        String query = "SELECT * FROM users";
-        List<User> users=new ArrayList<>();
+	}
 
-        try(Connection connection = dataSource.getConnection()){
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()){
-                User user = new User();
-                user.setName(rs.getString("name"));
-                user.setId(UUID.fromString(rs.getString("id")));
-                users.add(user);
-            }
-            return users;
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
+	@Override
+	public List<User> findAll() {
+		String query = "SELECT * FROM users";
+		List<User> users = new ArrayList<>();
+		try (Connection connection = database.basicDataSource.getConnection()) {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				User user = new User();
+				user.setId(UUID.fromString(rs.getString("id")));
+				user.setName(rs.getString("nombre"));
+				users.add(user);
+			}
+			return users;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			throw new RuntimeException(e);
+		}
+	}
 
-    @Override
-    public User find(UUID id) {
-        return null;
-    }
+	@Override
+	public User find(UUID id) throws RepositoryException {
+		String query = String.format("SELECT * FROM users where id = '%s'", id.toString());
+		User user = null;
+		try {
+			Connection connection = database.basicDataSource.getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(query);
+			while (resultSet.next()) {
+				user = new User();
+				user.setId(UUID.fromString(resultSet.getString("id")));
+				user.setName(resultSet.getString("nombre"));
+			}
+			connection.close();
+			return user;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-    @Override
-    public UUID save(User entity) {
-        return null;
-    }
+	@Override
+	public User save(User entity) {
+		String query = String.format("INSERT INTO users(id,nombre) VALUES('%s','%s')", entity.getId().toString(),
+				entity.getName());
+		try {
+			Connection connnection = database.basicDataSource.getConnection();
+			Statement statement = connnection.createStatement();
+			statement.execute(query);
+			connnection.close();
+			return entity;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-    @Override
-    public void update(User entity) {
+	@Override
+	public void update(User entity) throws RepositoryException {
+		try {
+			
+			System.out.println(entity.toString());
+			String query = String.format("UPDATE users SET nombre = '%s' WHERE id = '%s'", entity.getName(),
+					entity.getId().toString());
+			System.out.println(query);
+			Connection connnection = database.basicDataSource.getConnection();
+			Statement statement = connnection.createStatement();
+			statement.execute(query);
+			connnection.close();
+		
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-    }
+	@Override
+	public void delete(User entity) throws RepositoryException {
+		try {
+			User user = this.find(entity.getId());
+			String query = String.format("UPDATE users SET nombre = '%s' WHERE id = '%s'", entity.getName(),entity.getId().toString());
+			Connection connnection = database.basicDataSource.getConnection();
+			Statement statement = connnection.createStatement();
+			statement.execute(query);
+			connnection.close();
+		} catch (RepositoryException re) {
+			throw new RepositoryException("NOT FOUND");
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 
-    @Override
-    public void delete(User o) {
+	}
 
-    }
+	@Override
+	public void remove(Long id) {
 
-    @Override
-    public void remove(Long id) {
-
-    }
-
-    @Bean
-    public DataSource dataSource() throws SQLException {
-        if (dbUrl == null || dbUrl.isEmpty()) {
-            return new HikariDataSource();
-        } else {
-            HikariConfig config = new HikariConfig();
-            config.setJdbcUrl(dbUrl);
-            return new HikariDataSource(config);
-        }
-    }
+	}
 
 	@Override
 	public void remove(String licensePlate) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void delete(UUID o) throws RepositoryException {
 		// TODO Auto-generated method stub
 		
 	}

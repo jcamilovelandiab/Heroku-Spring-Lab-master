@@ -31,5 +31,10 @@ public class User implements Serializable{
         this.id = id;
     }
 
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", id=" + id + "]";
+	}
+
 
 }
