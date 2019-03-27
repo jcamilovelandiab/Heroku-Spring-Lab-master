@@ -34,6 +34,6 @@ public class CarController {
     
     @RequestMapping(method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> deleteCar(@PathVariable UUID id){
-       
+        return null;
     }
 }
