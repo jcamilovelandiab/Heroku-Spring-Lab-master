@@ -57,8 +57,8 @@ public class UserServices implements IUserServices{
 
 	@Override
 	public void delete(UUID id) throws RepositoryException {
-		if(userRepository.find(id) != null)
-	          throw new RuntimeException("The user exists");
+		if(userRepository.find(id) == null)
+	          throw new RuntimeException("The don't user exists");
         else {
         	userRepository.delete(id);
         }

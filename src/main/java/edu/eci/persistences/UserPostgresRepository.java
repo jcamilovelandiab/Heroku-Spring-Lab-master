@@ -155,7 +155,15 @@ public class UserPostgresRepository implements IUserRepository {
 
 	@Override
 	public void delete(UUID o) throws RepositoryException {
-		// TODO Auto-generated method stub
+		try {
+			String query = String.format("DELETE FROM users WHERE id = '%s'",o.toString());
+			Connection connnection = database.basicDataSource.getConnection();
+			Statement statement = connnection.createStatement();
+			statement.execute(query);
+			connnection.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 		
 	}
 }

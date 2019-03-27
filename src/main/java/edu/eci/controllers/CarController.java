@@ -31,9 +31,9 @@ public class CarController {
         throw new NotImplementedException();
     }
 
-    @ResponseBody
+    
     @RequestMapping(method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> deleteCar(@RequestBody UUID id){
-        throw new NotImplementedException();
+    public ResponseEntity<?> deleteCar(@PathVariable UUID id){
+       
     }
 }

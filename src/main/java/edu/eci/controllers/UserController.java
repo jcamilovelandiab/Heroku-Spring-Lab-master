@@ -50,8 +50,8 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.DELETE, consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<?> deleteUser(@RequestBody UUID id) {
+	@RequestMapping(method = RequestMethod.DELETE, consumes = { MediaType.APPLICATION_JSON_VALUE } ,  value = "/{id}")
+	public ResponseEntity<?> deleteUser(@PathVariable UUID id) {
 		try {
 			userServices.delete(id);
 			return new ResponseEntity<>(HttpStatus.OK);
