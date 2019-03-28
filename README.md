@@ -42,10 +42,15 @@ For more information about using Java on Heroku, see these Dev Center articles:
 ## The program versions that we need to execute this project.
 
 - Java
+
 ![](https://github.com/jcamilovelandiab/Heroku-Spring-Lab-master/blob/master/img/java.JPG)
+
 - Maven
+
 ![](https://github.com/jcamilovelandiab/Heroku-Spring-Lab-master/blob/master/img/maven.JPG)
+
 - Heroku
+
 ![](https://github.com/jcamilovelandiab/Heroku-Spring-Lab-master/blob/master/img/heroku.JPG)
 
 ## Prepare the app
