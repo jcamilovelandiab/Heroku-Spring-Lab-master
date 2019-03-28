@@ -110,8 +110,6 @@ public class UserPostgresRepository implements IUserRepository {
 	@Override
 	public void update(User entity) throws RepositoryException {
 		try {
-			
-			System.out.println(entity.toString());
 			String query = String.format("UPDATE users SET nombre = '%s' WHERE id = '%s'", entity.getName(),
 					entity.getId().toString());
 			System.out.println(query);
@@ -142,16 +140,9 @@ public class UserPostgresRepository implements IUserRepository {
 
 	}
 
-	@Override
-	public void remove(Long id) {
 
-	}
 
-	@Override
-	public void remove(String licensePlate) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	@Override
 	public void delete(UUID o) throws RepositoryException {

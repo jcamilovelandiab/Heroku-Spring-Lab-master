@@ -69,19 +69,9 @@ public class UserMemoryRepository implements IUserRepository{
                 .collect(toList());
     }
 
-    @Override
-    public void remove(Long id) {
-        UserMemoryRepository.usersContainer = UserMemoryRepository.getContainer()
-                .stream()
-                .filter(u -> !u.getId().equals(id))
-                .collect(toList());
-    }
 
-	@Override
-	public void remove(String licensePlate) {
-		// TODO Auto-generated method stub
-		
-	}
+
+	
 
 	@Override
 	public void delete(UUID o) throws RepositoryException {

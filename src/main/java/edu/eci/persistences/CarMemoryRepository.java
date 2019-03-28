@@ -68,20 +68,18 @@ public class CarMemoryRepository implements  ICarRepository {
 	                .collect(toList());
 	}
 
+
 	@Override
-	public void remove(String licensePlate) {
+	public void delete(String licensePlate) throws RepositoryException {
 		CarMemoryRepository.carsContainer = CarMemoryRepository.getContainer()
-				.stream().filter(c-> !c.getLicencePlate().equals(licensePlate)).collect(toList());
+				.stream().filter(c-> !c.getLicencePlate().equals(licensePlate)).collect(toList());		
 	}
 
-	@Override
-	public void remove(Long id) {
-	}
 
 	@Override
-	public void delete(String o) throws RepositoryException {
+	public List<Car> getByBrand(String brand) throws RepositoryException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

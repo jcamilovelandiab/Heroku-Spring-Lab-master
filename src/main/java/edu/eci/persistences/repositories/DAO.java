@@ -12,6 +12,4 @@ public interface DAO<T extends Serializable, PK> {
     public void update(T entity) throws RepositoryException;
     public void delete(T o) throws RepositoryException;
     public void delete(PK o) throws RepositoryException;
-    public void remove(Long id) throws RepositoryException;
-    public void remove(String licensePlate) throws RepositoryException;
 }
